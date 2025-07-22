@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Kinerja - Karang Taruna Manjahlega</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/profil">Profil</a></li>
+                <li><a href="/aktivitas">Aktivitas</a></li>
+                <li><a href="/laporan">Laporan Kinerja</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <header>
+                <h2>Manajemen Laporan Kinerja</h2>
+            </header>
+            <div class="content">
+                <div class="card">
+                    <h3>Tambah Laporan Baru</h3>
+                    <form action="/tambah_laporan" method="post">
+                        <div class="input-group">
+                            <label for="nama_laporan">Nama Laporan</label>
+                            <input type="text" id="nama_laporan" name="nama_laporan" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="periode">Periode</label>
+                            <select id="periode" name="periode" required>
+                                <option value="Triwulan 1">Triwulan 1</option>
+                                <option value="Triwulan 2">Triwulan 2</option>
+                                <option value="Triwulan 3">Triwulan 3</option>
+                                <option value="Triwulan 4">Triwulan 4</option>
+                                <option value="Tahunan">Tahunan</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="tahun">Tahun</label>
+                            <select id="tahun" name="tahun" required>
+                                {% for tahun in range(2025, 2030) %}
+                                <option value="{{ tahun }}">{{ tahun }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea id="deskripsi" name="deskripsi" rows="4" required></textarea>
+                        </div>
+                        <button type="submit">Tambah</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Daftar Laporan Kinerja</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Laporan</th>
+                                <th>Periode</th>
+                                <th>Tahun</th>
+                                <th>Deskripsi</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for laporan in daftar_laporan %}
+                            <tr>
+                                <td>{{ laporan.nama_laporan }}</td>
+                                <td>{{ laporan.periode }}</td>
+                                <td>{{ laporan.tahun }}</td>
+                                <td>{{ laporan.deskripsi }}</td>
+                                <td>{{ laporan.status }}</td>
+                                <td>
+                                    {% if user.jabatan == 'Ketua' and laporan.status == 'Menunggu Validasi' %}
+                                    <a href="/validasi_laporan/{{ loop.index0 }}">Validasi</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    <a href="/cetak_laporan" class="btn-cetak">Cetak Laporan Kinerja</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

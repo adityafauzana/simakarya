@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Karang Taruna Manjahlega</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/profil">Profil</a></li>
+                <li><a href="/aktivitas">Aktivitas</a></li>
+                <li><a href="/laporan">Laporan Kinerja</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <header>
+                <h2>Dashboard</h2>
+                <div class="user-info">
+                    <span>Selamat datang, {{ user.nama }} ({{ user.jabatan }})</span>
+                </div>
+            </header>
+            <div class="content">
+                <div class="card">
+                    <h3>Aktivitas Bulan Ini</h3>
+                    <p>0%</p>
+                </div>
+                <div class="card">
+                    <h3>Laporan Kinerja</h3>
+                    <p>0%</p>
+                </div>
+                <div class="card">
+                    <h3>Program Mendatang</h3>
+                    <p>0%</p>
+                </div>
+            </div>
+            <div class="social-media">
+                <h3>Informasi Sosial Media</h3>
+                <p>Instagram: <a href="https://www.instagram.com/karta_yp/" target="_blank">@karta_yp</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

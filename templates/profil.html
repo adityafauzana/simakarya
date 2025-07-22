@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Karang Taruna Manjahlega</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/profil">Profil</a></li>
+                <li><a href="/aktivitas">Aktivitas</a></li>
+                <li><a href="/laporan">Laporan Kinerja</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <header>
+                <h2>Profil Pengguna</h2>
+            </header>
+            <div class="content">
+                <div class="card">
+                    <h3>Informasi Profil</h3>
+                    <form action="/update_profil" method="post" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" id="nama" name="nama" value="{{ user.nama }}" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="jabatan">Jabatan</label>
+                            <input type="text" id="jabatan" name="jabatan" value="{{ user.jabatan }}" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label for="password">Password Baru</label>
+                            <input type="password" id="password" name="password">
+                        </div>
+                        <div class="input-group">
+                            <label for="foto">Foto Profil</label>
+                            <input type="file" id="foto" name="foto">
+                        </div>
+                        <button type="submit">Update Profil</button>
+                    </form>
+                </div>
+                {% if user.jabatan == 'Ketua' %}
+                <div class="card">
+                    <h3>Tambah Pengguna Baru</h3>
+                    <form action="/tambah_pengguna" method="post">
+                        <div class="input-group">
+                            <label for="nrp_baru">NRP</label>
+                            <input type="text" id="nrp_baru" name="nrp" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="nama_baru">Nama</label>
+                            <input type="text" id="nama_baru" name="nama" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="jabatan_baru">Jabatan</label>
+                            <input type="text" id="jabatan_baru" name="jabatan" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="password_baru">Password</label>
+                            <input type="password" id="password_baru" name="password" required>
+                        </div>
+                        <button type="submit">Tambah Pengguna</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

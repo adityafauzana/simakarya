@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktivitas - Karang Taruna Manjahlega</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/profil">Profil</a></li>
+                <li><a href="/aktivitas">Aktivitas</a></li>
+                <li><a href="/laporan">Laporan Kinerja</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <header>
+                <h2>Manajemen Aktivitas</h2>
+            </header>
+            <div class="content">
+                <div class="card">
+                    <h3>Tambah Aktivitas Baru</h3>
+                    <form action="/tambah_aktivitas" method="post">
+                        <div class="input-group">
+                            <label for="nama_kegiatan">Nama Kegiatan</label>
+                            <input type="text" id="nama_kegiatan" name="nama_kegiatan" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="tanggal">Tanggal</label>
+                            <input type="date" id="tanggal" name="tanggal" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea id="deskripsi" name="deskripsi" rows="4" required></textarea>
+                        </div>
+                        <button type="submit">Tambah</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Daftar Aktivitas</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Kegiatan</th>
+                                <th>Tanggal</th>
+                                <th>Deskripsi</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for aktivitas in daftar_aktivitas %}
+                            <tr>
+                                <td>{{ aktivitas.nama_kegiatan }}</td>
+                                <td>{{ aktivitas.tanggal }}</td>
+                                <td>{{ aktivitas.deskripsi }}</td>
+                                <td>{{ aktivitas.status }}</td>
+                                <td>
+                                    {% if user.jabatan == 'Ketua' and aktivitas.status == 'Menunggu Validasi' %}
+                                    <a href="/validasi_aktivitas/{{ loop.index0 }}">Validasi</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    <a href="/cetak_aktivitas" class="btn-cetak">Cetak Aktivitas Bulanan</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
